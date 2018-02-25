@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>按钮控制divx显示隐藏</title>
+</head>
+<style>
+    #div1{
+        display: none;
+        border: 1px solid #cccccc;
+        height:200px;
+        width: 100px;
+    }
+</style>
+<script>
+    window.onload=function () {
+        var oBtn1=document.getElementById("btn1");
+        var oDiv1=document.getElementById("div1");
+        oBtn1.onclick=function (ev) {
+            var even = ev || event;
+            if(oDiv1.style.display=="block"){
+                oDiv1.style.display="none";
+            }else {
+                oDiv1.style.display="block";
+            }
+            even.stopPropagation();
+        }
+        oDiv1.onclick=function (even) {
+            even.stopPropagation();
+        }
+        document.onclick=function () {
+            oDiv1.style.display="none";
+        }
+
+        var aBtns=oDiv1.getElementsByTagName("button");
+        for (var i = 0; i < aBtns.length; i++) {
+            aBtns[i].onclick=function () {
+                alert(this.value);
+            };
+
+        }
+    }
+</script>
+<body>
+<button id="btn1" type="button">点击显示</button>
+<div id="div1">
+    <button type="button">按钮1</button>
+    <button type="button">按钮2</button>
+</div>
+</body>
+</html>

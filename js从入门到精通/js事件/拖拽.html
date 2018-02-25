@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+    <style>
+        #div1 {
+            width:100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oDiv = document.getElementById("div1");
+            var disX = 0;
+            var disY = 0;
+            oDiv.onmousedown=function (ev) {
+                var oEvent = ev || event;
+                //计算鼠标点与div边的距离
+                disX = oEvent.clientX - oDiv.offsetLeft;
+                disY = oEvent.clientY - oDiv.offsetTop;
+                document.onmousemove=function (ev) {
+                    var oEvent = ev || event;
+                    var left = oEvent.clientX - disX;
+                    var top = oEvent.clientY -disY;
+
+                    if (left<0){
+                        left = 0;//防止div移出左边
+                    }else if(left>document.documentElement.clientWidth-oDiv.offsetWidth){
+                        //防止div移出右边
+                        left = document.documentElement.clientWidth - oDiv.offsetWidth;
+                    }
+                    if(top<0){
+                        top = 0;//防止div移出上边
+                    }else if(top>document.documentElement.clientHeight-oDiv.offsetHeight){
+                        //防止div移出下
+                        top = document.documentElement.clientHeight - oDiv.offsetHeight;
+                    }
+
+                    oDiv.style.left = left+"px";
+                    oDiv.style.top = top+"px";
+                    
+                };
+                document.onmouseup=function () {
+                    document.onmousemove = null;//鼠标抬起清楚鼠标移动事件
+                    document.onmouseup = null;
+                }
+                return false;//为了阻止火狐下onmousemove的默认事件
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

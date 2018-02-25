@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淡入淡出</title>
+    <style>
+        #div1{
+            width: 200px;
+            height: 200px;
+            background: red;
+            filter:alpha(opacity:30);
+            opacity:0.3;
+        }
+    </style>
+    <script>
+        window.onload=function (iTarget) {
+            var oDiv1=document.getElementById("div1");
+            oDiv1.onmouseover=function () {
+                starMove(100);
+            }
+            oDiv1.onmouseout=function () {
+                starMove(30);
+            }
+        }
+
+        /**运动框架： 1、在开始运动时，关闭已有定时器
+         *           2、把运动和停止隔开（if/else）
+          * @decriptio: 用变量存储透明度值
+          * @author wangcc
+          * @date 2017/12/24 13:58
+          */
+        var alpha=30;
+        var timer=null;
+        function starMove(iTarget) {
+            var oDiv1=document.getElementById("div1");
+            var speed=0;
+            alpha<iTarget?speed=10:speed=-10;
+            clearInterval(timer);
+            timer=setInterval(function () {
+                if(alpha==iTarget){
+                    clearInterval(timer);
+                }else{
+                    alpha+=speed;
+                    oDiv1.style.filter='alpha(opacity:'+alpha+')';
+                    oDiv1.style.opacity=alpha/100;
+                }
+            },30)
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>

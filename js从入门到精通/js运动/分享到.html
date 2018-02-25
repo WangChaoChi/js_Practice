@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分享到</title>
+    <style>
+        #div1 {
+            width: 150px;
+            height: 200px;
+            background: red;
+            position: absolute;
+            left: -150px;
+        }
+
+        span {
+            width: 20px;
+            height: 70px;
+            line-height: 20px;
+            top: 50px;
+            background: green;
+            right: -20px;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oDiv = document.getElementById("div1");
+            oDiv.onmouseover = function () {
+                starMove(0);
+            }
+            oDiv.onmouseout=function () {
+                starMove(-150);
+            }
+        }
+
+        var timer = null;
+
+        /**
+          * @decription  通过目标点，计算速度值
+          * @author wangcc
+          * @date 2017/12/24 14:02
+          */
+        function starMove(iTarget) {
+            var speed=0;
+            var oDiv = document.getElementById("div1");
+            oDiv.offsetLeft<iTarget?speed=10:speed=-10;
+            clearInterval(timer);
+
+            timer = setInterval(function () {
+                oDiv.offsetLeft == iTarget?clearInterval(timer):oDiv.style.left = oDiv.offsetLeft + speed + "px";
+            }, 30);
+
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <span>分享到</span>
+</div>
+</body>
+</html>
